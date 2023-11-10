@@ -16,50 +16,52 @@
  */
 
 $.extend({
-    message: function(options) {
-        var defaults={
-            message:' 操作成功',
-            time:'2000',
+    message: function (options) {
+        var defaults = {
+            message: " Successful operation",
+            time: "2000",
             autoClose: true,
-            onClose:function(){}
+            onClose: function () {},
         };
 
-        if(typeof options === 'string'){
-            defaults.message=options;
+        if (typeof options === "string") {
+            defaults.message = options;
         }
-        if(typeof options === 'object'){
-            defaults=$.extend({},defaults,options);
+        if (typeof options === "object") {
+            defaults = $.extend({}, defaults, options);
         }
         //message模版
-        var template='<div class="tip animate bounceIn">\n' +
-            '    <p class="tip-info">'+defaults.message+'</p>\n' +
-            '</div>';
-        var _this=this;
-        var $body=$('body');
-        var $message=$(template);
+        var template =
+            '<div class="tip animate bounceIn">\n' +
+            '    <p class="tip-info">' +
+            defaults.message +
+            "</p>\n" +
+            "</div>";
+        var _this = this;
+        var $body = $("body");
+        var $message = $(template);
         var timer;
 
         //移除所有并插入该消息
-        $('.tip').remove();
+        $(".tip").remove();
         $body.append($message);
         //居中
         $message.css({
-            'margin-left':'-'+$message.width()/2+'px'
+            "margin-left": "-" + $message.width() / 2 + "px",
         });
 
-
         //自动关闭
-        if (defaults.autoClose){
-            timer=setTimeout(function(){
+        if (defaults.autoClose) {
+            timer = setTimeout(function () {
                 closeFn();
-            },defaults.time);
+            }, defaults.time);
         }
         //关闭
-        var closeFn = function(){
-            $message.addClass('hide');
+        var closeFn = function () {
+            $message.addClass("hide");
             $message.remove();
             defaults.onClose(defaults);
             clearTimeout(timer);
         };
-    }
+    },
 });
